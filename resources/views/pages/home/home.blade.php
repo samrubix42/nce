@@ -20,6 +20,7 @@
             totalSlides: 3,
             timer: null,
             paused: false,
+            touchStartX: null,
             init() {
                 this.timer = setInterval(() => {
                     if (!this.paused) {
@@ -35,25 +36,41 @@
             },
             goTo(i) {
                 this.currentSlide = i;
+            },
+            handleTouchStart(event) {
+                this.touchStartX = event.changedTouches[0].clientX;
+            },
+            handleTouchEnd(event) {
+                if (this.touchStartX === null) {
+                    return;
+                }
+                const delta = event.changedTouches[0].clientX - this.touchStartX;
+                if (Math.abs(delta) > 45) {
+                    if (delta < 0) {
+                        this.next();
+                    } else {
+                        this.prev();
+                    }
+                }
+                this.touchStartX = null;
             }
         }"
         @mouseenter="paused = true"
         @mouseleave="paused = false"
     >
         <!-- Main Slide Viewport (Middle Section) -->
-        <div class="relative flex-1 flex items-center w-full">
+        <div 
+            class="relative flex-1 w-full overflow-hidden"
+            @touchstart.passive="handleTouchStart($event)"
+            @touchend.passive="handleTouchEnd($event)"
+        >
+            <div 
+                class="flex h-full transition-transform duration-[700ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] will-change-transform"
+                :style="{ transform: 'translateX(-' + (currentSlide * 100) + '%)' }"
+            >
             
             <!-- ================= SLIDE 0: Alumni Mentorship ================= -->
-            <div 
-                x-show="currentSlide === 0" 
-                x-transition:enter="transition ease-out duration-500"
-                x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100"
-                x-transition:leave="transition ease-in duration-300 absolute inset-0"
-                x-transition:leave-start="opacity-100"
-                x-transition:leave-end="opacity-0"
-                class="w-full h-full flex items-center py-10 lg:py-14"
-            >
+            <div class="relative w-full shrink-0 h-full flex items-center py-10 lg:py-14">
                 <!-- Right Side Cinematic Photo with Smooth Horizontal Fade to White -->
                 <div class="absolute inset-y-0 right-0 w-full sm:w-[68%] lg:w-[60%] overflow-hidden pointer-events-none">
                     <img 
@@ -104,17 +121,7 @@
             </div>
 
             <!-- ================= SLIDE 1: Shared Roots & Collaborative Growth ================= -->
-            <div 
-                x-show="currentSlide === 1" 
-                x-cloak
-                x-transition:enter="transition ease-out duration-500"
-                x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100"
-                x-transition:leave="transition ease-in duration-300 absolute inset-0"
-                x-transition:leave-start="opacity-100"
-                x-transition:leave-end="opacity-0"
-                class="w-full h-full flex items-center py-10 lg:py-14"
-            >
+            <div class="relative w-full shrink-0 h-full flex items-center py-10 lg:py-14">
                 <!-- Right Side Cinematic Photo with Smooth Horizontal Fade to White -->
                 <div class="absolute inset-y-0 right-0 w-full sm:w-[68%] lg:w-[60%] overflow-hidden pointer-events-none">
                     <img 
@@ -165,17 +172,7 @@
             </div>
 
             <!-- ================= SLIDE 2: Nationwide Founder Network ================= -->
-            <div 
-                x-show="currentSlide === 2" 
-                x-cloak
-                x-transition:enter="transition ease-out duration-500"
-                x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100"
-                x-transition:leave="transition ease-in duration-300 absolute inset-0"
-                x-transition:leave-start="opacity-100"
-                x-transition:leave-end="opacity-0"
-                class="w-full h-full flex items-center py-10 lg:py-14"
-            >
+            <div class="relative w-full shrink-0 h-full flex items-center py-10 lg:py-14">
                 <!-- Right Side Cinematic Photo with Smooth Horizontal Fade to White -->
                 <div class="absolute inset-y-0 right-0 w-full sm:w-[68%] lg:w-[60%] overflow-hidden pointer-events-none">
                     <img 
@@ -225,19 +222,28 @@
                 </div>
             </div>
 
+            </div>
         </div>
 
-        <!-- ================= Minimal Clean Indicator Dots at Bottom ================= -->
-        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-10 w-full flex items-center gap-2">
-            <template x-for="i in totalSlides" :key="i">
-                <button 
-                    @click="goTo(i - 1)"
-                    :class="currentSlide === (i - 1) ? 'w-8 bg-[#147cb5]' : 'w-2.5 bg-[#dce5e8] hover:bg-[#526875]'"
-                    class="h-1.5 rounded-full transition-all duration-200 cursor-pointer"
-                    :aria-label="'Go to slide ' + i"
-                ></button>
-            </template>
-        </div>
+     <!-- Hero Slider Pagination -->
+<div class="pointer-events-none absolute inset-x-0 bottom-6 sm:bottom-8 z-20 flex justify-center px-4">
+    <div class="pointer-events-auto flex items-center gap-2">
+
+        <template x-for="i in totalSlides" :key="i">
+            <button
+                @click="goTo(i - 1)"
+                type="button"
+                class="h-1 rounded-none cursor-pointer transition-all duration-300 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#147cb5]/50"
+                :class="currentSlide === (i - 1)
+                    ? 'w-10 bg-[#147cb5]'
+                    : 'w-9 bg-white hover:bg-[#147cb5]/70'"
+                :aria-label="'Go to slide ' + i"
+                :aria-current="currentSlide === (i - 1) ? 'true' : 'false'"
+            ></button>
+        </template>
+
+    </div>
+</div>
     </section>
 
     <!-- ========================================================================= -->
@@ -572,551 +578,376 @@
     </section>
 
     <!-- ========================================================================= -->
-    <!-- 6. TEAMS BY REGION / CHAPTER NETWORK (Bigger Clean Cards) -->
+    <!-- 6. TEAMS BY REGION / CHAPTER NETWORK (Continuous Architectural Border Grid) -->
     <!-- ========================================================================= -->
     <section id="chapters" class="py-20 sm:py-24 bg-[#f6f7f4] border-b border-[#dce5e8]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <!-- Section Header (Centered) -->
-            <div class="max-w-3xl mx-auto text-center mb-14 space-y-4">
-                <span class="text-xs font-bold tracking-[0.14em] uppercase text-[#147cb5] block">Connected across places</span>
+            <!-- Section Header (Centered, Clean, No Badges) -->
+            <div class="max-w-3xl mx-auto text-center mb-14 space-y-3">
+                <span class="text-xs font-bold tracking-[0.16em] uppercase text-[#147cb5] block">Regional Chapters</span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#102f43] leading-tight">
                     Teams By Region
                 </h2>
                 <p class="text-base sm:text-lg text-[#526875] leading-relaxed">
-                    NCE's network brings together Navodayans from cities across India. Wherever your business takes you, the strength of an active, verified regional community travels with you.
+                    NCE's active regional chapters connecting verified Navodayan founders and enterprise leaders across key cities.
                 </p>
-            
-                
             </div>
 
-            <!-- Regional Chapter Cards Grid (Bigger & Clean 3-Column Layout) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Continuous Architectural Grid (No badges, photo on top, city + members below) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-[#dce5e8] border border-[#dce5e8] rounded-xl overflow-hidden shadow-xs">
                 
-                <!-- 1. Lucknow (10 Members) -->
-                <div class="bg-white rounded-xl border border-[#dce5e8] overflow-hidden hover:border-[#147cb5] hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
-                    <div>
-                        <!-- High-impact City Photo -->
-                        <div class="relative h-60 sm:h-64 overflow-hidden bg-[#f6f7f4]">
-                            <img 
-                                src="{{ asset('images/lucknow.jpeg') }}" 
-                                alt="Lucknow Region Chapter" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            >
-                            <!-- Member Count Badge -->
-                            <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-[#dce5e8] shadow-xs flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-[#147cb5]"></span>
-                                <span class="text-xs font-bold text-[#102f43]">10 Members</span>
-                            </div>
-                        </div>
-
-                        <!-- Card Body -->
-                        <div class="p-6 sm:p-7 space-y-3">
-                            <h3 class="text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
-                                Lucknow
-                            </h3>
-                            <p class="text-sm text-[#526875] leading-relaxed">
-                                Uttar Pradesh Chapter with active alumni founders in manufacturing, IT consulting, statutory audits, and healthcare.
-                            </p>
-                            <div class="pt-2 space-y-1.5 text-xs text-[#526875]">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Weekly Friday Meetings • 7:30 AM</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Regional Coordinator: Er. R. K. Verma</span>
-                                </div>
-                            </div>
-                        </div>
+                <!-- 1. Lucknow -->
+                <a href="#enquiry" class="bg-white flex flex-col justify-between group block overflow-hidden transition-colors hover:bg-[#fafcfd]">
+                    <div class="h-64 sm:h-72 overflow-hidden bg-[#f6f7f4]">
+                        <img 
+                            src="{{ asset('images/lucknow.jpeg') }}" 
+                            alt="Lucknow" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        >
                     </div>
-
-                    <!-- Card Action -->
-                    <div class="p-6 sm:p-7 pt-0">
-                        <a href="#enquiry" class="btn-theme-light w-full justify-center">
-                            <span>Join Lucknow Chapter</span>
-                            <span class="text-base leading-none">↗</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 2. Bhopal (4 Members) -->
-                <div class="bg-white rounded-xl border border-[#dce5e8] overflow-hidden hover:border-[#147cb5] hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
-                    <div>
-                        <!-- High-impact City Photo -->
-                        <div class="relative h-60 sm:h-64 overflow-hidden bg-[#f6f7f4]">
-                            <img 
-                                src="{{ asset('images/bhopal.jpg') }}" 
-                                alt="Bhopal Region Chapter" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            >
-                            <!-- Member Count Badge -->
-                            <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-[#dce5e8] shadow-xs flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-[#147cb5]"></span>
-                                <span class="text-xs font-bold text-[#102f43]">4 Members</span>
-                            </div>
-                        </div>
-
-                        <!-- Card Body -->
-                        <div class="p-6 sm:p-7 space-y-3">
-                            <h3 class="text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
-                                Bhopal
-                            </h3>
-                            <p class="text-sm text-[#526875] leading-relaxed">
-                                Madhya Pradesh Chapter uniting founders across agri-tech, renewable energy, corporate legal, and engineering services.
-                            </p>
-                            <div class="pt-2 space-y-1.5 text-xs text-[#526875]">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Weekly Thursday Meetings • 7:30 AM</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Regional Coordinator: Dr. S. Patel</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card Action -->
-                    <div class="p-6 sm:p-7 pt-0">
-                        <a href="#enquiry" class="btn-theme-light w-full justify-center">
-                            <span>Join Bhopal Chapter</span>
-                            <span class="text-base leading-none">↗</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 3. Jaipur (4 Members) -->
-                <div class="bg-white rounded-xl border border-[#dce5e8] overflow-hidden hover:border-[#147cb5] hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
-                    <div>
-                        <!-- High-impact City Photo -->
-                        <div class="relative h-60 sm:h-64 overflow-hidden bg-[#f6f7f4]">
-                            <img 
-                                src="{{ asset('images/jaipur.webp') }}" 
-                                alt="Jaipur Region Chapter" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            >
-                            <!-- Member Count Badge -->
-                            <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-[#dce5e8] shadow-xs flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-[#147cb5]"></span>
-                                <span class="text-xs font-bold text-[#102f43]">4 Members</span>
-                            </div>
-                        </div>
-
-                        <!-- Card Body -->
-                        <div class="p-6 sm:p-7 space-y-3">
-                            <h3 class="text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
-                                Jaipur
-                            </h3>
-                            <p class="text-sm text-[#526875] leading-relaxed">
-                                Rajasthan Chapter connecting innovators in hospitality, handicraft exports, gemstone commerce, and software startups.
-                            </p>
-                            <div class="pt-2 space-y-1.5 text-xs text-[#526875]">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Weekly Wednesday Meetings • 7:30 AM</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Regional Coordinator: A. Sharma</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card Action -->
-                    <div class="p-6 sm:p-7 pt-0">
-                        <a href="#enquiry" class="btn-theme-light w-full justify-center">
-                            <span>Join Jaipur Chapter</span>
-                            <span class="text-base leading-none">↗</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 4. Patna (2 Members) -->
-                <div class="bg-white rounded-xl border border-[#dce5e8] overflow-hidden hover:border-[#147cb5] hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
-                    <div>
-                        <!-- High-impact City Photo -->
-                        <div class="relative h-60 sm:h-64 overflow-hidden bg-[#f6f7f4]">
-                            <img 
-                                src="{{ asset('images/patna.jpg') }}" 
-                                alt="Patna Region Chapter" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            >
-                            <!-- Member Count Badge -->
-                            <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-[#dce5e8] shadow-xs flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-[#147cb5]"></span>
-                                <span class="text-xs font-bold text-[#102f43]">2 Members</span>
-                            </div>
-                        </div>
-
-                        <!-- Card Body -->
-                        <div class="p-6 sm:p-7 space-y-3">
-                            <h3 class="text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
-                                Patna
-                            </h3>
-                            <p class="text-sm text-[#526875] leading-relaxed">
-                                Bihar Chapter fostering partnerships across infrastructure contracting, civil engineering, education tech, and FMCG trade.
-                            </p>
-                            <div class="pt-2 space-y-1.5 text-xs text-[#526875]">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Weekly Tuesday Meetings • 7:30 AM</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Regional Coordinator: R. Kashyap (FCA)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card Action -->
-                    <div class="p-6 sm:p-7 pt-0">
-                        <a href="#enquiry" class="btn-theme-light w-full justify-center">
-                            <span>Join Patna Chapter</span>
-                            <span class="text-base leading-none">↗</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 5. Pune (0 Members - Launching) -->
-                <div class="bg-white rounded-xl border border-[#dce5e8] overflow-hidden hover:border-[#147cb5] hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
-                    <div>
-                        <!-- High-impact City Photo -->
-                        <div class="relative h-60 sm:h-64 overflow-hidden bg-[#f6f7f4]">
-                            <img 
-                                src="{{ asset('images/pune.jpg') }}" 
-                                alt="Pune Region Chapter" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            >
-                            <!-- Member Count Badge -->
-                            <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-[#dce5e8] shadow-xs flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-[#a8bfcb]"></span>
-                                <span class="text-xs font-bold text-[#526875]">0 Members</span>
-                            </div>
-                        </div>
-
-                        <!-- Card Body -->
-                        <div class="p-6 sm:p-7 space-y-3">
-                            <h3 class="text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
-                                Pune
-                            </h3>
-                            <p class="text-sm text-[#526875] leading-relaxed">
-                                Maharashtra Chapter currently onboarding charter founders in automobile components, enterprise SaaS, and manufacturing.
-                            </p>
-                            <div class="pt-2 space-y-1.5 text-xs text-[#526875]">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Charter Formation in Progress</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Be a Founding Member of Pune Chapter</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card Action -->
-                    <div class="p-6 sm:p-7 pt-0">
-                        <a href="#enquiry" class="btn-theme-primary w-full justify-center">
-                            <span>Apply as Charter Founder</span>
-                            <span class="text-base leading-none">↗</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 6. Hyderabad (4 Members) -->
-                <div class="bg-white rounded-xl border border-[#dce5e8] overflow-hidden hover:border-[#147cb5] hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
-                    <div>
-                        <!-- High-impact City Photo -->
-                        <div class="relative h-60 sm:h-64 overflow-hidden bg-[#f6f7f4]">
-                            <img 
-                                src="{{ asset('images/hyderabad.jpg') }}" 
-                                alt="Hyderabad Region Chapter" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            >
-                            <!-- Member Count Badge -->
-                            <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-[#dce5e8] shadow-xs flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-[#147cb5]"></span>
-                                <span class="text-xs font-bold text-[#102f43]">4 Members</span>
-                            </div>
-                        </div>
-
-                        <!-- Card Body -->
-                        <div class="p-6 sm:p-7 space-y-3">
-                            <h3 class="text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
-                                Hyderabad
-                            </h3>
-                            <p class="text-sm text-[#526875] leading-relaxed">
-                                Telangana & AP Chapter driving synergies in pharmaceuticals, cloud infrastructure, AI startups, and real estate development.
-                            </p>
-                            <div class="pt-2 space-y-1.5 text-xs text-[#526875]">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Weekly Saturday Meetings • 8:00 AM</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Regional Coordinator: K. Reddy</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card Action -->
-                    <div class="p-6 sm:p-7 pt-0">
-                        <a href="#enquiry" class="btn-theme-light w-full justify-center">
-                            <span>Join Hyderabad Chapter</span>
-                            <span class="text-base leading-none">↗</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 7. Chandigarh (2 Members) -->
-                <div class="bg-white rounded-xl border border-[#dce5e8] overflow-hidden hover:border-[#147cb5] hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
-                    <div>
-                        <!-- High-impact City Photo -->
-                        <div class="relative h-60 sm:h-64 overflow-hidden bg-[#f6f7f4]">
-                            <img 
-                                src="{{ asset('images/chandigarh.webp') }}" 
-                                alt="Chandigarh Region Chapter" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            >
-                            <!-- Member Count Badge -->
-                            <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-[#dce5e8] shadow-xs flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-[#147cb5]"></span>
-                                <span class="text-xs font-bold text-[#102f43]">2 Members</span>
-                            </div>
-                        </div>
-
-                        <!-- Card Body -->
-                        <div class="p-6 sm:p-7 space-y-3">
-                            <h3 class="text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
-                                Chandigarh
-                            </h3>
-                            <p class="text-sm text-[#526875] leading-relaxed">
-                                Punjab & Haryana Chapter focusing on agro-industries, logistics, international student education, and IT services.
-                            </p>
-                            <div class="pt-2 space-y-1.5 text-xs text-[#526875]">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Weekly Monday Meetings • 7:30 AM</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#147cb5]"></span>
-                                    <span>Regional Coordinator: G. S. Gill</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card Action -->
-                    <div class="p-6 sm:p-7 pt-0">
-                        <a href="#enquiry" class="btn-theme-light w-full justify-center">
-                            <span>Join Chandigarh Chapter</span>
-                            <span class="text-base leading-none">↗</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 8. Start a Chapter in Your City -->
-                <div class="bg-white rounded-xl border-2 border-dashed border-[#b8ddf1] p-8 flex flex-col justify-between hover:border-[#147cb5] hover:shadow-md transition-all duration-200 group bg-radial-[at_top_right] from-[#f0f7fb] to-white">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-lg bg-[#e7f4fb] text-[#147cb5] flex items-center justify-center font-bold text-xl">
-                            +
-                        </div>
-                        <h3 class="text-2xl font-bold text-[#102f43]">
-                            Start a Chapter in Your City
+                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
+                            Lucknow
                         </h3>
-                        <p class="text-sm text-[#526875] leading-relaxed">
-                            Don't see your city listed? Lead the Navodaya business chapter in your region with complete charter backing, founder directories, and meeting formats from NCE National Secretariat.
+                        <p class="text-sm font-medium text-[#526875]">
+                            10 Members
                         </p>
                     </div>
+                </a>
 
-                    <div class="pt-6">
-                        <a href="#enquiry" class="btn-theme-primary w-full justify-center">
-                            <span>Apply as Chapter Lead</span>
-                            <span class="text-base leading-none">↗</span>
-                        </a>
+                <!-- 2. Bhopal -->
+                <a href="#enquiry" class="bg-white flex flex-col justify-between group block overflow-hidden transition-colors hover:bg-[#fafcfd]">
+                    <div class="h-64 sm:h-72 overflow-hidden bg-[#f6f7f4]">
+                        <img 
+                            src="{{ asset('images/bhopal.jpg') }}" 
+                            alt="Bhopal" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        >
                     </div>
-                </div>
+                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
+                            Bhopal
+                        </h3>
+                        <p class="text-sm font-medium text-[#526875]">
+                            4 Members
+                        </p>
+                    </div>
+                </a>
+
+                <!-- 3. Jaipur -->
+                <a href="#enquiry" class="bg-white flex flex-col justify-between group block overflow-hidden transition-colors hover:bg-[#fafcfd]">
+                    <div class="h-64 sm:h-72 overflow-hidden bg-[#f6f7f4]">
+                        <img 
+                            src="{{ asset('images/jaipur.webp') }}" 
+                            alt="Jaipur" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        >
+                    </div>
+                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
+                            Jaipur
+                        </h3>
+                        <p class="text-sm font-medium text-[#526875]">
+                            4 Members
+                        </p>
+                    </div>
+                </a>
+
+                <!-- 4. Patna -->
+                <a href="#enquiry" class="bg-white flex flex-col justify-between group block overflow-hidden transition-colors hover:bg-[#fafcfd]">
+                    <div class="h-64 sm:h-72 overflow-hidden bg-[#f6f7f4]">
+                        <img 
+                            src="{{ asset('images/patna.jpg') }}" 
+                            alt="Patna" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        >
+                    </div>
+                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
+                            Patna
+                        </h3>
+                        <p class="text-sm font-medium text-[#526875]">
+                            2 Members
+                        </p>
+                    </div>
+                </a>
+
+                <!-- 5. Pune -->
+                <a href="#enquiry" class="bg-white flex flex-col justify-between group block overflow-hidden transition-colors hover:bg-[#fafcfd]">
+                    <div class="h-64 sm:h-72 overflow-hidden bg-[#f6f7f4]">
+                        <img 
+                            src="{{ asset('images/pune.jpg') }}" 
+                            alt="Pune" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        >
+                    </div>
+                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
+                            Pune
+                        </h3>
+                        <p class="text-sm font-medium text-[#526875]">
+                            0 Members
+                        </p>
+                    </div>
+                </a>
+
+                <!-- 6. Hyderabad -->
+                <a href="#enquiry" class="bg-white flex flex-col justify-between group block overflow-hidden transition-colors hover:bg-[#fafcfd]">
+                    <div class="h-64 sm:h-72 overflow-hidden bg-[#f6f7f4]">
+                        <img 
+                            src="{{ asset('images/hyderabad.jpg') }}" 
+                            alt="Hyderabad" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        >
+                    </div>
+                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
+                            Hyderabad
+                        </h3>
+                        <p class="text-sm font-medium text-[#526875]">
+                            4 Members
+                        </p>
+                    </div>
+                </a>
+
+                <!-- 7. Chandigarh -->
+                <a href="#enquiry" class="bg-white flex flex-col justify-between group block overflow-hidden transition-colors hover:bg-[#fafcfd]">
+                    <div class="h-64 sm:h-72 overflow-hidden bg-[#f6f7f4]">
+                        <img 
+                            src="{{ asset('images/chandigarh.webp') }}" 
+                            alt="Chandigarh" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        >
+                    </div>
+                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
+                            Chandigarh
+                        </h3>
+                        <p class="text-sm font-medium text-[#526875]">
+                            2 Members
+                        </p>
+                    </div>
+                </a>
+
+                <!-- 8. Start a Chapter -->
+                <a href="#enquiry" class="bg-white flex flex-col justify-between group block overflow-hidden transition-colors hover:bg-[#fafcfd]">
+                    <div class="h-64 sm:h-72 bg-[#082f49] flex flex-col items-center justify-center p-8 text-center text-white">
+                        <div class="w-14 h-14 rounded-full bg-white/10 text-white flex items-center justify-center mb-3 group-hover:bg-[#147cb5] group-hover:scale-110 transition-all">
+                            <i data-lucide="plus" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-1">Expand NCE in Your Region</h4>
+                        <p class="text-xs text-[#b4d0df] max-w-xs leading-relaxed">Lead the verified Navodaya business chapter in your city with national secretariat support.</p>
+                    </div>
+                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
+                            Start a Chapter
+                        </h3>
+                        <p class="text-sm font-bold text-[#147cb5] flex items-center gap-1">
+                            <span>Apply Lead</span>
+                            <span>&rarr;</span>
+                        </p>
+                    </div>
+                </a>
+
+                <!-- 9. Pan-India Alumni Directory -->
+                <a href="#directory" class="bg-white flex flex-col justify-between group block overflow-hidden transition-colors hover:bg-[#fafcfd]">
+                    <div class="h-64 sm:h-72 bg-[#102f43] flex flex-col items-center justify-center p-8 text-center text-white">
+                        <div class="w-14 h-14 rounded-full bg-white/10 text-white flex items-center justify-center mb-3 group-hover:bg-[#147cb5] group-hover:scale-110 transition-all">
+                            <i data-lucide="compass" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-1">Pan-India Directory</h4>
+                        <p class="text-xs text-[#b4d0df] max-w-xs leading-relaxed">Discover verified Navodayan manufacturers, consultants, service providers, and vendors.</p>
+                    </div>
+                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                        <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
+                            Alumni Directory
+                        </h3>
+                        <p class="text-sm font-bold text-[#147cb5] flex items-center gap-1">
+                            <span>Explore All</span>
+                            <span>&rarr;</span>
+                        </p>
+                    </div>
+                </a>
 
             </div>
 
         </div>
     </section>
 
-        </div>
-    </section>
-
     <!-- ========================================================================= -->
-    <!-- 7. SEARCH VENDORS & BUSINESS DIRECTORY (Alpine.js Clean Filter) -->
+    <!-- 7. UPCOMING EVENTS (Minimal Autoslider, Clean Professional Design) -->
     <!-- ========================================================================= -->
-    <section id="directory" class="py-20 sm:py-24 bg-white border-b border-[#dce5e8]" x-data="{
-        searchQuery: '',
-        activeCategory: 'all',
-        vendors: [
-            {
-                name: 'Kashyap & Associates CA',
-                founder: 'Rohit Kashyap (FCA)',
-                jnv: 'JNV Patna (2007)',
-                category: 'ca',
-                tag: 'CA & Financial Services',
-                city: 'Patna / Delhi',
-                services: 'Statutory Audit, GST Compliance, Startup Valuations & Income Tax Appeals.'
+    <section 
+        id="events" 
+        class="py-20 sm:py-24 bg-white border-b border-[#dce5e8]"
+        x-data="{
+            active: 0,
+            autoplayTimer: null,
+            autoplayDelay: 5500,
+            touchStartX: null,
+            events: [
+                {
+                    title: 'Super Saarthi — Venture Grooming Program',
+                    tag: 'Mentorship & Acceleration',
+                    description: 'An intensive founder acceleration cohort connecting emerging Navodayan startup founders with experienced alumni mentors across strategy, investor readiness, and unit economics.',
+                    startDate: '2024-10-18',
+                    endDate: '2024-10-22',
+                    image: '{{ asset('images/events/super-saarthi.png') }}',
+                    imageFit: 'object-contain'
+                },
+                {
+                    title: 'Dehradun Regional Chapter Meet',
+                    tag: 'Regional In-Person Meetup',
+                    description: 'Join fellow Navodayan business owners and entrepreneurs from Uttarakhand, Himachal, and NCR for a high-trust synergy breakfast, regional supplier discovery, and collaborative exchange.',
+                    startDate: '2024-10-13',
+                    endDate: '2024-10-13',
+                    image: '{{ asset('images/about.jpeg') }}',
+                    imageFit: 'object-cover'
+                },
+                {
+                    title: 'NCE Annual National Business Summit',
+                    tag: 'National Annual Convention',
+                    description: 'The flagship national gathering bringing together 500+ verified Navodayan business leaders, startup founders, institutional investors, and chapter delegates from across India.',
+                    startDate: '2024-11-25',
+                    endDate: '2024-11-27',
+                    image: '{{ asset('images/slide-mentorship.webp') }}',
+                    imageFit: 'object-cover'
+                }
+            ],
+            next() {
+                this.active = (this.active + 1) % this.events.length;
             },
-            {
-                name: 'NavTech Digital Solutions',
-                founder: 'Virendra Singh',
-                jnv: 'JNV Lucknow (2011)',
-                category: 'it',
-                tag: 'IT & Software Development',
-                city: 'Noida / Lucknow',
-                services: 'Custom Enterprise Web Apps, Mobile Development, Laravel, Cloud Architecture.'
+            prev() {
+                this.active = (this.active - 1 + this.events.length) % this.events.length;
             },
-            {
-                name: 'Vidyalaya Infra & Turnkey',
-                founder: 'Er. Manoj Verma',
-                jnv: 'JNV Jaipur (2009)',
-                category: 'infra',
-                tag: 'Architecture & Construction',
-                city: 'Jaipur / NCR',
-                services: 'Commercial Interiors, Pre-engineered Buildings, Civil Engineering & Design.'
+            startAutoplay() {
+                this.stopAutoplay();
+                this.autoplayTimer = setInterval(() => {
+                    this.next();
+                }, this.autoplayDelay);
             },
-            {
-                name: 'Himalayan Express Logistics',
-                founder: 'Praveen Bisht',
-                jnv: 'JNV Dehradun (2013)',
-                category: 'logistics',
-                tag: 'Logistics & Supply Chain',
-                city: 'Dehradun / Delhi NCR',
-                services: 'Pan-India Cargo Freight, Warehouse Storage, Cold Chain Solutions.'
+            stopAutoplay() {
+                if (this.autoplayTimer) {
+                    clearInterval(this.autoplayTimer);
+                    this.autoplayTimer = null;
+                }
             },
-            {
-                name: 'AyurVeda Naturals & Pharma',
-                founder: 'Dr. Alok Mishra',
-                jnv: 'JNV Bhopal (2008)',
-                category: 'pharma',
-                tag: 'Medical & Pharma',
-                city: 'Bhopal / Indore',
-                services: 'Herbal Formulations, Bulk Medicine Distribution, Medical Equipment.'
+            handleTouchStart(event) {
+                this.touchStartX = event.changedTouches[0].clientX;
             },
-            {
-                name: 'PrintCraft Boxes & Packaging',
-                founder: 'Sunil Kumar',
-                jnv: 'JNV Chandigarh (2012)',
-                category: 'printing',
-                tag: 'Printing & Packaging',
-                city: 'Chandigarh / Ludhiana',
-                services: 'Corrugated Packaging, Offset Box Printing, Industrial Labeling.'
+            handleTouchEnd(event) {
+                if (this.touchStartX === null) {
+                    return;
+                }
+                const delta = event.changedTouches[0].clientX - this.touchStartX;
+                if (Math.abs(delta) > 45) {
+                    if (delta < 0) {
+                        this.next();
+                    } else {
+                        this.prev();
+                    }
+                }
+                this.touchStartX = null;
             }
-        ],
-        matches(vendor) {
-            const matchesCat = this.activeCategory === 'all' || vendor.category === this.activeCategory;
-            const q = this.searchQuery.toLowerCase().trim();
-            const matchesText = !q || 
-                vendor.name.toLowerCase().includes(q) || 
-                vendor.founder.toLowerCase().includes(q) || 
-                vendor.jnv.toLowerCase().includes(q) || 
-                vendor.city.toLowerCase().includes(q) ||
-                vendor.services.toLowerCase().includes(q);
-            return matchesCat && matchesText;
-        }
-    }">
+        }"
+        x-init="startAutoplay()"
+        @mouseenter="stopAutoplay()"
+        @mouseleave="startAutoplay()"
+        @focusin="stopAutoplay()"
+        @focusout="startAutoplay()"
+    >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div class="max-w-3xl mb-10">
-                <span class="eyebrow">Alumni marketplace</span>
-                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-[#102f43] leading-tight">
-                    Search Vendors & Partners.
+            <!-- Section Header -->
+            <div class="max-w-3xl mx-auto text-center mb-12 sm:mb-14">
+                <span class="eyebrow">Gatherings &amp; Conclaves</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#102f43] leading-tight">
+                    Upcoming Events
                 </h2>
-                <p class="text-base text-[#526875] mt-2">
-                    Find verified Navodayan business owners across industries. High trust, proven capabilities.
+                <p class="mt-3 text-base sm:text-lg text-[#526875] leading-relaxed">
+                    Curated national and regional gatherings designed to create meaningful connections and business opportunities.
                 </p>
             </div>
 
-            <!-- Clean Search & Filter Inputs -->
-            <div class="space-y-4 mb-8">
-                <div class="relative max-w-2xl">
-                    <input 
-                        type="text" 
-                        x-model="searchQuery"
-                        placeholder="Search by vendor name, service, JNV district, or city..."
-                        class="w-full px-4 py-3 bg-[#f6f7f4] border border-[#dce5e8] rounded-md text-sm text-[#102f43] placeholder:text-[#526875] focus:bg-white focus:border-[#147cb5] outline-none"
-                    >
-                </div>
-
-                <div class="flex flex-wrap gap-2 text-xs font-bold text-[#102f43]">
-                    <button 
-                        @click="activeCategory = 'all'" 
-                        :class="activeCategory === 'all' ? 'bg-[#082f49] text-white' : 'bg-[#f6f7f4] text-[#102f43] border border-[#dce5e8] hover:bg-slate-200'"
-                        class="px-4 py-2 rounded-md transition cursor-pointer"
-                    >
-                        All Categories
-                    </button>
-                    <button 
-                        @click="activeCategory = 'ca'" 
-                        :class="activeCategory === 'ca' ? 'bg-[#082f49] text-white' : 'bg-[#f6f7f4] text-[#102f43] border border-[#dce5e8] hover:bg-slate-200'"
-                        class="px-4 py-2 rounded-md transition cursor-pointer"
-                    >
-                        CA & Finance
-                    </button>
-                    <button 
-                        @click="activeCategory = 'it'" 
-                        :class="activeCategory === 'it' ? 'bg-[#082f49] text-white' : 'bg-[#f6f7f4] text-[#102f43] border border-[#dce5e8] hover:bg-slate-200'"
-                        class="px-4 py-2 rounded-md transition cursor-pointer"
-                    >
-                        IT & Software
-                    </button>
-                    <button 
-                        @click="activeCategory = 'infra'" 
-                        :class="activeCategory === 'infra' ? 'bg-[#082f49] text-white' : 'bg-[#f6f7f4] text-[#102f43] border border-[#dce5e8] hover:bg-slate-200'"
-                        class="px-4 py-2 rounded-md transition cursor-pointer"
-                    >
-                        Construction
-                    </button>
-                    <button 
-                        @click="activeCategory = 'logistics'" 
-                        :class="activeCategory === 'logistics' ? 'bg-[#082f49] text-white' : 'bg-[#f6f7f4] text-[#102f43] border border-[#dce5e8] hover:bg-slate-200'"
-                        class="px-4 py-2 rounded-md transition cursor-pointer"
-                    >
-                        Logistics
-                    </button>
-                    <button 
-                        @click="activeCategory = 'pharma'" 
-                        :class="activeCategory === 'pharma' ? 'bg-[#082f49] text-white' : 'bg-[#f6f7f4] text-[#102f43] border border-[#dce5e8] hover:bg-slate-200'"
-                        class="px-4 py-2 rounded-md transition cursor-pointer"
-                    >
-                        Pharma & Health
-                    </button>
-                </div>
-            </div>
-
-            <!-- Vendor List Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <template x-for="vendor in vendors" :key="vendor.name">
+            <!-- Minimal Card Slider -->
+            <div 
+                class="relative w-full"
+                @touchstart.passive="handleTouchStart($event)"
+                @touchend.passive="handleTouchEnd($event)"
+            >
+                <div class="overflow-hidden rounded-xl border border-[#dce5e8] bg-white shadow-sm">
                     <div 
-                        x-show="matches(vendor)" 
-                        x-transition.opacity
-                        class="bg-white p-6 rounded-md border border-[#dce5e8] flex flex-col justify-between space-y-4"
+                        class="flex transition-transform duration-[700ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] will-change-transform"
+                        :style="{ transform: 'translateX(-' + (active * 100) + '%)' }"
                     >
-                        <div class="space-y-2">
-                            <span class="text-[11px] font-bold text-[#147cb5] uppercase tracking-wider block" x-text="vendor.tag"></span>
-                            <h3 class="text-lg font-bold text-[#102f43]" x-text="vendor.name"></h3>
-                            <p class="text-xs text-[#526875]" x-text="vendor.founder + ' • ' + vendor.jnv + ' • ' + vendor.city"></p>
-                            <p class="text-xs text-[#526875] pt-1 leading-relaxed" x-text="vendor.services"></p>
-                        </div>
-                        <div class="pt-3 border-t border-[#dce5e8] flex items-center justify-between">
-                            <span class="text-xs text-emerald-700 font-bold">✓ Verified Member</span>
-                            <a href="#enquiry" class="text-xs font-bold text-[#147cb5] hover:underline">
-                                Connect ↗
-                            </a>
-                        </div>
+                        <template x-for="(event, index) in events" :key="index">
+                            <div class="w-full flex-shrink-0 grid grid-cols-1 lg:grid-cols-2 bg-white">
+                                <!-- Image -->
+                                <div class="relative min-h-[260px] sm:min-h-[320px] lg:min-h-[420px] bg-[#f6f7f4]">
+                                    <div 
+                                        class="absolute inset-0 flex items-center justify-center"
+                                        :class="event.imageFit === 'object-contain' ? 'p-10 sm:p-14' : ''"
+                                    >
+                                        <img 
+                                            :src="event.image" 
+                                            :alt="event.title" 
+                                            :class="event.imageFit === 'object-contain' ? 'max-w-full max-h-full object-contain' : 'w-full h-full object-cover'"
+                                            class="select-none"
+                                        >
+                                    </div>
+                                </div>
+
+                                <!-- Content -->
+                                <div class="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
+                                    <div class="max-w-lg">
+                                        <span class="text-[11px] font-bold uppercase tracking-[0.18em] text-[#147cb5]" x-text="event.tag"></span>
+                                        <h3 class="mt-2.5 text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102f43] tracking-tight leading-tight" x-text="event.title"></h3>
+                                        <p class="mt-4 text-sm sm:text-base text-[#526875] leading-relaxed" x-text="event.description"></p>
+                                    </div>
+
+                                    <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+                                        <div>
+                                            <span class="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#7a8d99]">Start Date</span>
+                                            <span class="mt-1 block text-sm font-semibold text-[#102f43]" x-text="event.startDate"></span>
+                                        </div>
+                                        <div class="hidden sm:block h-8 w-px bg-[#dce5e8]"></div>
+                                        <div>
+                                            <span class="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#7a8d99]">End Date</span>
+                                            <span class="mt-1 block text-sm font-semibold text-[#102f43]" x-text="event.endDate"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-10 flex flex-wrap items-center justify-between gap-4">
+                                        <a href="#enquiry" class="btn-theme-primary">
+                                            <span>Register for Event</span>
+                                            <span class="text-base leading-none">&rarr;</span>
+                                        </a>
+
+                                        <div class="flex items-center gap-1.5">
+                                            <button 
+                                                @click="prev()" 
+                                                type="button"
+                                                class="w-9 h-9 rounded-full border border-[#dce5e8] bg-white text-[#102f43] hover:border-[#147cb5] hover:text-[#147cb5] transition flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#147cb5]/20"
+                                                aria-label="Previous event"
+                                            >
+                                                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                                            </button>
+                                            <button 
+                                                @click="next()" 
+                                                type="button"
+                                                class="w-9 h-9 rounded-full border border-[#dce5e8] bg-white text-[#102f43] hover:border-[#147cb5] hover:text-[#147cb5] transition flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#147cb5]/20"
+                                                aria-label="Next event"
+                                            >
+                                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
                     </div>
-                </template>
+                </div>
             </div>
 
         </div>

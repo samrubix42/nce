@@ -11,24 +11,24 @@
                 <img 
                     src="{{ asset('images/nce-logo.png') }}" 
                     alt="NCE Logo" 
-                    class="h-10 sm:h-12 w-auto object-contain"
+                    class="h-10 sm:h-10 w-auto object-contain"
                     onerror="this.src='{{ asset('images/nce.png') }}'"
                 >
             </a>
 
-            <!-- Desktop Navigation Links (Clean dummy links with #) -->
+        
+
+            <!-- Actions -->
+            <div class="hidden sm:flex items-center gap-5">
+                   <!-- Desktop Navigation Links (Clean dummy links with #) -->
             <nav class="hidden lg:flex items-center gap-8 text-[13px] font-bold text-[#102f43]">
                 <a href="#" class="hover:text-[#147cb5] transition py-2">Membership</a>
                 <a href="#" class="hover:text-[#147cb5] transition py-2">Events</a>
                 <a href="#" class="hover:text-[#147cb5] transition py-2">NCE News</a>
             </nav>
-
-            <!-- Actions -->
-            <div class="hidden sm:flex items-center gap-5">
-               
                 <a 
                     href="#enquiry" 
-                    class="inline-flex items-center justify-center gap-2 bg-[#147cb5] hover:bg-[#106491] text-white text-[13px] font-bold px-5 py-2.5 rounded-md transition duration-150 shadow-xs"
+                    class="inline-flex items-center justify-center gap-2  text-[#147cb5] text-[13px] font-bold px-5 py-2 transition duration-150 "
                 >
                     <span>Member Sign In</span>
                     <span class="text-base font-normal leading-none">&rarr;</span>
