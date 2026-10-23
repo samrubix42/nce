@@ -2,8 +2,234 @@
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+@source '../js/**/*.js';
+
+/* =========================================================================
+   Satoshi Font Family (Authentic font from nceconnect.org)
+   ========================================================================= */
+@font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/satoshi/Satoshi-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/satoshi/Satoshi-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/satoshi/Satoshi-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/satoshi/Satoshi-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/satoshi/Satoshi-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --blue: #1e96d7;
+    --blue-dark: #147cb5;
+    --blue-hover: #106491;
+    --ink: #102f43;
+    --navy: #082f49;
+    --navy-hover: #12587f;
+    --muted: #526875;
+    --paper: #f6f7f4;
+    --line: #dce5e8;
+    --white: #ffffff;
+    --radius: 8px;
+    --body-font-family: 'Satoshi', 'Josefin Sans', 'Raleway', sans-serif;
+    --heading-font-family: 'Satoshi', 'Josefin Sans', 'Raleway', sans-serif;
+}
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Satoshi', 'Josefin Sans', 'Raleway', sans-serif;
+    --color-nce-blue: #147cb5;
+    --color-nce-cyan: #1e96d7;
+    --color-nce-ink: #102f43;
+    --color-nce-navy: #082f49;
+    --color-nce-muted: #526875;
+    --color-nce-paper: #f6f7f4;
+    --color-nce-line: #dce5e8;
 }
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    color: var(--ink);
+    background-color: var(--white);
+    font-family: var(--body-font-family);
+    line-height: 1.65;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font-family);
+    letter-spacing: -0.035em;
+    font-weight: 700;
+}
+
+/* Eyebrow label from join.nceconnect.org */
+.eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #126b9f;
+    display: block;
+    margin-bottom: 14px;
+    font-family: 'Satoshi', 'Josefin Sans', sans-serif;
+}
+
+/* Authentic Button Styles from join.nceconnect.org (with light design options) */
+.btn-theme-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #147cb5;
+    color: #ffffff;
+    border: 1px solid #147cb5;
+    border-radius: 6px;
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.18s ease;
+    box-shadow: 0 1px 2px rgba(16, 47, 67, 0.08);
+}
+.btn-theme-primary:hover {
+    background-color: #106491;
+    border-color: #106491;
+    color: #ffffff;
+}
+
+.btn-theme-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #ffffff;
+    color: #102f43;
+    border: 1px solid #dce5e8;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.18s ease;
+    box-shadow: 0 1px 2px rgba(16, 47, 67, 0.04);
+}
+.btn-theme-light:hover {
+    background-color: #f6f7f4;
+    border-color: #147cb5;
+    color: #147cb5;
+}
+
+.btn-theme-soft {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #f0f7fb;
+    color: #147cb5;
+    border: 1px solid #cce5f4;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.18s ease;
+}
+.btn-theme-soft:hover {
+    background-color: #147cb5;
+    border-color: #147cb5;
+    color: #ffffff;
+}
+
+/* Clean text link with border bottom from join.nceconnect.org */
+.text-link {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    border-bottom: 1px solid #a8bfcb;
+    padding-bottom: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.15s, border-color 0.15s;
+    font-family: 'Satoshi', 'Josefin Sans', sans-serif;
+    text-decoration: none;
+}
+.text-link:hover {
+    color: var(--blue-dark);
+    border-color: var(--blue-dark);
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+::-webkit-scrollbar-track {
+    background: #f6f7f4;
+}
+::-webkit-scrollbar-thumb {
+    background: #cdd9de;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #a3b8c2;
+}
+
+/* Focus styles */
+*:focus-visible {
+    outline: 2px solid #147cb5;
+    outline-offset: 2px;
+}
+
+/* Segoe UI font utility matching user reference */
+.font-segoe,
+.font-segoe h1,
+.font-segoe h2,
+.font-segoe h3,
+.font-segoe h4,
+.font-segoe p,
+.font-segoe span,
+.font-segoe li,
+.font-segoe a {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Inter', Roboto, sans-serif !important;
+}
+
