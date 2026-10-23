@@ -14,7 +14,7 @@
     <!-- ========================================================================= -->
     <section
         id="hero"
-        class="relative bg-white border-b border-[#dce5e8] min-h-[640px] lg:h-[calc(100vh-80px)] lg:min-h-[680px] lg:max-h-[860px] flex flex-col justify-between overflow-hidden"
+        class="relative bg-white border-b border-[#dce5e8] min-h-[calc(100svh-81px)] sm:min-h-[calc(100svh-97px)] lg:h-[calc(100svh-97px)] lg:min-h-[680px] lg:max-h-[860px] flex flex-col justify-between overflow-hidden"
         x-data="{
             currentSlide: 0,
             totalSlides: 3,
@@ -63,11 +63,11 @@
             @touchstart.passive="handleTouchStart($event)"
             @touchend.passive="handleTouchEnd($event)">
             <div
-                class="flex h-full transition-transform duration-[700ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] will-change-transform"
+                class="absolute inset-0 flex h-full transition-transform duration-[700ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] will-change-transform"
                 :style="{ transform: 'translateX(-' + (currentSlide * 100) + '%)' }">
 
                 <!-- ================= SLIDE 0: Alumni Mentorship ================= -->
-                <div class="relative w-full shrink-0 h-full flex items-center py-10 lg:py-14">
+                <div class="relative w-full shrink-0 h-full flex items-start sm:items-center pt-6 pb-10 sm:py-10 lg:py-14">
                     <!-- Right Side Cinematic Photo with Smooth Horizontal Fade to White -->
                     <div class="absolute inset-y-0 right-0 w-full sm:w-[68%] lg:w-[60%] overflow-hidden pointer-events-none">
                         <img
@@ -75,7 +75,7 @@
                             alt="Senior Navodayans Mentorship Conference"
                             class="w-full h-full object-cover object-center sm:object-right">
                         <!-- Pure White Fade Mask to the Left -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 sm:via-white/50 lg:via-white/5 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white/25 sm:bg-gradient-to-r sm:from-white sm:via-white/60 sm:to-transparent lg:via-white/5"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-white/40 sm:from-transparent via-transparent to-transparent"></div>
                     </div>
 
@@ -89,19 +89,19 @@
                             </span>
 
                             <!-- Bold Clean Headline -->
-                            <h1 class="text-4xl sm:text-5xl lg:text-[60px] font-bold tracking-tight text-[#102f43] leading-[1.08]">
+                            <h1 class="text-3xl sm:text-5xl lg:text-[60px] font-bold tracking-tight text-[#102f43] leading-[1.1]">
                                 Senior Navodayans<br>
                                 <span class="text-[#147cb5]">Guiding the Next</span><br>
                                 Generation.
                             </h1>
 
                             <!-- Description Copy -->
-                            <p class="text-base sm:text-lg lg:text-xl text-[#526875] leading-relaxed max-w-lg">
+                            <p class="text-sm sm:text-lg lg:text-xl text-[#526875] leading-relaxed max-w-lg">
                                 Connect one-on-one with experienced Navodaya alumni who are now successful founders, corporate leaders, and officers, ready to help you succeed.
                             </p>
 
                             <!-- Light Theme Buttons (2 Clean Buttons Only) -->
-                            <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <div class="flex flex-col items-stretch sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4 pt-2">
                                 <a href="#enquiry" class="btn-theme-primary">
                                     <span>Find a Mentor</span>
                                     <span class="text-base leading-none">↗</span>
@@ -117,7 +117,7 @@
                 </div>
 
                 <!-- ================= SLIDE 1: Shared Roots & Collaborative Growth ================= -->
-                <div class="relative w-full shrink-0 h-full flex items-center py-10 lg:py-14">
+                <div class="relative w-full shrink-0 h-full flex items-start sm:items-center pt-6 pb-10 sm:py-10 lg:py-14">
                     <!-- Right Side Cinematic Photo with Smooth Horizontal Fade to White -->
                     <div class="absolute inset-y-0 right-0 w-full sm:w-[68%] lg:w-[60%] overflow-hidden pointer-events-none">
                         <img
@@ -125,7 +125,7 @@
                             alt="Navodaya Council of Entrepreneurs Community Convention"
                             class="w-full h-full object-cover object-center sm:object-right">
                         <!-- Pure White Fade Mask to the Left -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 sm:via-white/50 lg:via-white/5 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white/25 sm:bg-gradient-to-r sm:from-white sm:via-white/60 sm:to-transparent lg:via-white/5"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-white/40 sm:from-transparent via-transparent to-transparent"></div>
                     </div>
 
@@ -139,19 +139,19 @@
                             </span>
 
                             <!-- Bold Clean Headline -->
-                            <h1 class="text-4xl sm:text-5xl lg:text-[60px] font-bold tracking-tight text-[#102f43] leading-[1.08]">
+                            <h1 class="text-3xl sm:text-5xl lg:text-[60px] font-bold tracking-tight text-[#102f43] leading-[1.1]">
                                 Shared roots.<br>
                                 <span class="text-[#147cb5]">Growing together</span><br>
                                 in business.
                             </h1>
 
                             <!-- Description Copy -->
-                            <p class="text-base sm:text-lg lg:text-xl text-[#526875] leading-relaxed max-w-lg">
+                            <p class="text-sm sm:text-lg lg:text-xl text-[#526875] leading-relaxed max-w-lg">
                                 From our Navodaya classrooms to the enterprises we build today. Collaborate with trusted alumni founders across 8 state chapters and diverse industries.
                             </p>
 
                             <!-- Light Theme Buttons (2 Clean Buttons Only) -->
-                            <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <div class="flex flex-col items-stretch sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4 pt-2">
                                 <a href="#enquiry" class="btn-theme-primary">
                                     <span>Register your business</span>
                                     <span class="text-base leading-none">↗</span>
@@ -167,7 +167,7 @@
                 </div>
 
                 <!-- ================= SLIDE 2: Nationwide Founder Network ================= -->
-                <div class="relative w-full shrink-0 h-full flex items-center py-10 lg:py-14">
+                <div class="relative w-full shrink-0 h-full flex items-start sm:items-center pt-6 pb-10 sm:py-10 lg:py-14">
                     <!-- Right Side Cinematic Photo with Smooth Horizontal Fade to White -->
                     <div class="absolute inset-y-0 right-0 w-full sm:w-[68%] lg:w-[60%] overflow-hidden pointer-events-none">
                         <img
@@ -175,7 +175,7 @@
                             alt="NCE Delegates National Gathering"
                             class="w-full h-full object-cover object-center sm:object-right">
                         <!-- Pure White Fade Mask to the Left -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 sm:via-white/50 lg:via-white/5 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white/25 sm:bg-gradient-to-r sm:from-white sm:via-white/60 sm:to-transparent lg:via-white/5"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-white/40 sm:from-transparent via-transparent to-transparent"></div>
                     </div>
 
@@ -189,19 +189,19 @@
                             </span>
 
                             <!-- Bold Clean Headline -->
-                            <h1 class="text-4xl sm:text-5xl lg:text-[60px] font-bold tracking-tight text-[#102f43] leading-[1.08]">
+                            <h1 class="text-3xl sm:text-5xl lg:text-[60px] font-bold tracking-tight text-[#102f43] leading-[1.1]">
                                 A nationwide network<br>
                                 <span class="text-[#147cb5]">of 13,000+ alumni</span><br>
                                 entrepreneurs.
                             </h1>
 
                             <!-- Description Copy -->
-                            <p class="text-base sm:text-lg lg:text-xl text-[#526875] leading-relaxed max-w-lg">
+                            <p class="text-sm sm:text-lg lg:text-xl text-[#526875] leading-relaxed max-w-lg">
                                 Exchange verified business referrals, schedule direct peer consultations, and unlock opportunities across 8 regional state chapters.
                             </p>
 
                             <!-- Light Theme Buttons (2 Clean Buttons Only) -->
-                            <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <div class="flex flex-col items-stretch sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4 pt-2">
                                 <a href="#chapters" class="btn-theme-primary">
                                     <span>Explore Regional Chapters</span>
                                     <span class="text-base leading-none">↗</span>
@@ -220,7 +220,7 @@
         </div>
 
         <!-- Hero Slider Pagination -->
-        <div class="pointer-events-none absolute inset-x-0 bottom-6 sm:bottom-8 z-20 flex justify-center px-4">
+        <div class="hidden sm:flex pointer-events-none absolute inset-x-0 bottom-6 sm:bottom-8 z-20 justify-center px-4">
             <div class="pointer-events-auto flex items-center gap-2">
 
                 <template x-for="i in totalSlides" :key="i">
@@ -267,7 +267,7 @@
     <!-- ========================================================================= -->
     <!-- 3. LET'S WIN TOGETHER / ABOUT NCOE (Clean Light Design, Left Content, Right Image) -->
     <!-- ========================================================================= -->
-    <section id="about" class="py-20 sm:py-24 bg-white border-b border-[#dce5e8] font-segoe">
+    <section id="about" class="py-16 sm:py-24 bg-white border-b border-[#dce5e8] font-segoe">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
@@ -358,7 +358,7 @@
     <!-- ========================================================================= -->
     <!-- 5. MEMBERSHIP BENEFITS (Authentic 8 Benefits with Icons & Light Theme) -->
     <!-- ========================================================================= -->
-    <section id="benefits" class="py-20 sm:py-24 bg-white border-b border-[#dce5e8]">
+    <section id="benefits" class="py-16 sm:py-24 bg-white border-b border-[#dce5e8]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Section Header -->
@@ -570,7 +570,7 @@
     <!-- ========================================================================= -->
     <!-- 6. TEAMS BY REGION / CHAPTER NETWORK (Continuous Architectural Border Grid) -->
     <!-- ========================================================================= -->
-    <section id="chapters" class="py-20 sm:py-24 bg-[#f6f7f4] border-b border-[#dce5e8]">
+    <section id="chapters" class="py-16 sm:py-24 bg-[#f6f7f4] border-b border-[#dce5e8]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Section Header (Centered, Clean, No Badges) -->
@@ -595,7 +595,7 @@
                             alt="Lucknow"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
-                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                    <div class="p-5 sm:p-6 flex flex-wrap items-center justify-between gap-2 border-t border-[#dce5e8] bg-white">
                         <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
                             Lucknow
                         </h3>
@@ -613,7 +613,7 @@
                             alt="Bhopal"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
-                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                    <div class="p-5 sm:p-6 flex flex-wrap items-center justify-between gap-2 border-t border-[#dce5e8] bg-white">
                         <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
                             Bhopal
                         </h3>
@@ -631,7 +631,7 @@
                             alt="Jaipur"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
-                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                    <div class="p-5 sm:p-6 flex flex-wrap items-center justify-between gap-2 border-t border-[#dce5e8] bg-white">
                         <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
                             Jaipur
                         </h3>
@@ -649,7 +649,7 @@
                             alt="Patna"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
-                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                    <div class="p-5 sm:p-6 flex flex-wrap items-center justify-between gap-2 border-t border-[#dce5e8] bg-white">
                         <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
                             Patna
                         </h3>
@@ -667,7 +667,7 @@
                             alt="Pune"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
-                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                    <div class="p-5 sm:p-6 flex flex-wrap items-center justify-between gap-2 border-t border-[#dce5e8] bg-white">
                         <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
                             Pune
                         </h3>
@@ -685,7 +685,7 @@
                             alt="Hyderabad"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
-                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                    <div class="p-5 sm:p-6 flex flex-wrap items-center justify-between gap-2 border-t border-[#dce5e8] bg-white">
                         <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
                             Hyderabad
                         </h3>
@@ -703,7 +703,7 @@
                             alt="Chandigarh"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
-                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                    <div class="p-5 sm:p-6 flex flex-wrap items-center justify-between gap-2 border-t border-[#dce5e8] bg-white">
                         <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
                             Chandigarh
                         </h3>
@@ -722,7 +722,7 @@
                         <h4 class="text-lg font-bold text-white mb-1">Expand NCE in Your Region</h4>
                         <p class="text-xs text-[#b4d0df] max-w-xs leading-relaxed">Lead the verified Navodaya business chapter in your city with national secretariat support.</p>
                     </div>
-                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                    <div class="p-5 sm:p-6 flex flex-wrap items-center justify-between gap-2 border-t border-[#dce5e8] bg-white">
                         <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
                             Start a Chapter
                         </h3>
@@ -742,7 +742,7 @@
                         <h4 class="text-lg font-bold text-white mb-1">Pan-India Directory</h4>
                         <p class="text-xs text-[#b4d0df] max-w-xs leading-relaxed">Discover verified Navodayan manufacturers, consultants, service providers, and vendors.</p>
                     </div>
-                    <div class="p-5 sm:p-6 flex items-center justify-between border-t border-[#dce5e8] bg-white">
+                    <div class="p-5 sm:p-6 flex flex-wrap items-center justify-between gap-2 border-t border-[#dce5e8] bg-white">
                         <h3 class="text-xl sm:text-2xl font-bold text-[#102f43] group-hover:text-[#147cb5] transition-colors">
                             Alumni Directory
                         </h3>
@@ -763,7 +763,7 @@
     <!-- ========================================================================= -->
     <section
         id="events"
-        class="py-20 sm:py-24 bg-white border-b border-[#dce5e8]"
+        class="py-16 sm:py-24 bg-white border-b border-[#dce5e8]"
         x-data="{
             active: 0,
             autoplayTimer: null,
@@ -864,7 +864,7 @@
                         <template x-for="(event, index) in events" :key="index">
                             <div class="w-full flex-shrink-0 grid grid-cols-1 lg:grid-cols-2 bg-white">
                                 <!-- Image -->
-                                <div class="relative min-h-[260px] sm:min-h-[320px] lg:min-h-[420px] bg-[#f6f7f4]">
+                                <div class="relative min-h-[220px] sm:min-h-[320px] lg:min-h-[420px] bg-[#f6f7f4]">
                                     <div
                                         class="absolute inset-0 flex items-center justify-center"
                                         :class="event.imageFit === 'object-contain' ? 'p-10 sm:p-14' : ''">
@@ -877,7 +877,7 @@
                                 </div>
 
                                 <!-- Content -->
-                                <div class="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
+                                <div class="flex flex-col justify-center p-6 sm:p-10 lg:p-12">
                                     <div class="max-w-lg">
                                         <span class="text-[11px] font-bold uppercase tracking-[0.18em] text-[#147cb5]" x-text="event.tag"></span>
                                         <h3 class="mt-2.5 text-2xl sm:text-3xl lg:text-4xl font-bold text-[#102f43] tracking-tight leading-tight" x-text="event.title"></h3>
@@ -939,7 +939,7 @@
                     <span class="text-xs uppercase tracking-[0.16em] text-[#b4d0df] font-bold block">
                         Your next chapter starts with a connection
                     </span>
-                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
+                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
                         Let's build something<br>better, together.
                     </h2>
                     <p class="text-sm text-[#b4d0df] max-w-xl">
@@ -947,10 +947,10 @@
                     </p>
                 </div>
 
-                <div class="shrink-0">
+                <div class="w-full lg:w-auto">
                     <a 
                         href="#enquiry" 
-                        class="inline-flex items-center justify-center gap-3 bg-white text-[#082f49] hover:bg-[#f6f7f4] px-8 py-4 rounded-md font-bold text-sm transition duration-150 shadow-md"
+                        class="inline-flex w-full lg:w-auto items-center justify-center gap-3 bg-white text-[#082f49] hover:bg-[#f6f7f4] px-8 py-4 rounded-md font-bold text-sm transition duration-150 shadow-md"
                     >
                         <span>Register your business</span>
                         <span class="text-lg leading-none">↗</span>
@@ -963,7 +963,7 @@
     <!-- ========================================================================= -->
     <!-- 8. HOW IT WORKS / BUSINESS REGISTRATION (Process from join.nceconnect.org) -->
     <!-- ========================================================================= -->
-    <section id="enquiry" class="py-20 sm:py-24 bg-white border-b border-[#dce5e8]" x-data="{
+    <section id="enquiry" class="py-16 sm:py-24 bg-white border-b border-[#dce5e8]" x-data="{
         category: '',
         subCategory: '',
         submitted: false,
@@ -993,13 +993,13 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12">
 
                     <!-- Left: Intro & Steps -->
-                    <div class="lg:col-span-5 bg-[#f6f7f4] p-8 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#dce5e8] space-y-6">
+                    <div class="lg:col-span-5 bg-[#f6f7f4] p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#dce5e8] space-y-6">
                     <div>
                         <span class="eyebrow">Make the first connection</span>
-                        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-[#102f43] leading-tight">
+                        <h2 class="text-2xl sm:text-4xl font-bold tracking-tight text-[#102f43] leading-tight">
                             Your business belongs<br>in the conversation.
                         </h2>
-                        <p class="mt-3 text-base text-[#526875] leading-relaxed">
+                        <p class="mt-3 text-sm sm:text-base text-[#526875] leading-relaxed">
                             Tell us who you are, what you do and how you would like to connect with NCE.
                         </p>
                     </div>
@@ -1034,7 +1034,7 @@
                 </div>
 
                 <!-- Right: Registration Form -->
-                <div class="lg:col-span-7 p-7 sm:p-10 lg:p-12">
+                <div class="lg:col-span-7 p-6 sm:p-10 lg:p-12">
 
                         <!-- Success View -->
                         <div x-show="submitted" class="text-center py-10 space-y-4">
@@ -1170,7 +1170,7 @@
     <!-- ========================================================================= -->
     <!-- 9. FAQS (Clean Editorial Accordion from join.nceconnect.org) -->
     <!-- ========================================================================= -->
-    <section id="faqs" class="py-20 sm:py-24 bg-white border-b border-[#dce5e8]" x-data="{
+    <section id="faqs" class="py-16 sm:py-24 bg-white border-b border-[#dce5e8]" x-data="{
         activeFaq: 0,
         faqs: [
             {

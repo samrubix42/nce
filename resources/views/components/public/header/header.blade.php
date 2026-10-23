@@ -19,7 +19,7 @@
         
 
             <!-- Actions -->
-            <div class="hidden sm:flex items-center gap-5">
+            <div class="hidden lg:flex items-center gap-5">
                    <!-- Desktop Navigation Links (Clean dummy links with #) -->
             <nav class="hidden lg:flex items-center gap-8 text-[13px] font-bold text-[#102f43]">
                 <a href="#" class="hover:text-[#147cb5] transition py-2">Membership</a>
@@ -58,7 +58,7 @@
         x-transition:leave="transition ease-in duration-100"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 -translate-y-2"
-        class="lg:hidden border-t border-[#dce5e8] bg-white px-6 py-6 space-y-4 shadow-lg"
+        class="lg:hidden max-h-[calc(100svh-80px)] sm:max-h-[calc(100svh-96px)] overflow-y-auto border-t border-[#dce5e8] bg-white px-6 py-6 space-y-4 shadow-lg"
     >
         <div class="flex flex-col space-y-3 text-sm font-bold text-[#102f43]">
             <a @click="mobileOpen = false" href="#" class="hover:text-[#147cb5]">Membership</a>
