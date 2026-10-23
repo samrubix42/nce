@@ -987,13 +987,13 @@
             }, 800);
         }
     }">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div class="max-w-6xl mx-auto bg-white overflow-hidden">
+            <div class="max-w-6xl mx-auto bg-white rounded-xl border border-[#dce5e8] overflow-hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-12">
 
                     <!-- Left: Intro & Steps -->
-                    <div class="lg:col-span-5 bg-white p-8 sm:p-10 lg:p-12 space-y-6">
+                    <div class="lg:col-span-5 bg-[#f6f7f4] p-8 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#dce5e8] space-y-6">
                     <div>
                         <span class="eyebrow">Make the first connection</span>
                         <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-[#102f43] leading-tight">
@@ -1034,7 +1034,7 @@
                 </div>
 
                 <!-- Right: Registration Form -->
-                <div class="lg:col-span-7 p-7 sm:p-10 bg-[#f6f7f4] lg:p-12">
+                <div class="lg:col-span-7 p-7 sm:p-10 lg:p-12">
 
                         <!-- Success View -->
                         <div x-show="submitted" class="text-center py-10 space-y-4">
@@ -1053,59 +1053,59 @@
                         </div>
 
                         <!-- Active Form View -->
-                        <form x-show="!submitted" @submit.prevent="handleSubmit" class="space-y-4">
+                        <form x-show="!submitted" @submit.prevent="handleSubmit" class="space-y-5">
 
                             <div class="border-b border-[#dce5e8] pb-3 mb-2">
                                 <h3 class="text-lg font-bold text-[#102f43]">Business Registration & Enquiry</h3>
                                 <p class="text-xs text-[#526875]">Connect with the Navodaya Council of Entrepreneurs.</p>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
                                 <div>
-                                    <label class="block text-xs font-bold text-[#102f43] mb-1">Your Full Name *</label>
+                                    <label class="block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#526875] mb-1.5">Your Full Name *</label>
                                     <input
                                         type="text"
                                         name="name"
                                         required
-                                        class="w-full px-3.5 py-2.5 text-xs bg-white border border-[#dce5e8] rounded-md outline-none focus:border-[#147cb5]">
+                                        class="w-full px-0 py-2.5 text-sm bg-transparent border-x-0 border-t-0 border-b border-[#dce5e8] rounded-none outline-none focus:border-[#147cb5] transition-colors">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-[#102f43] mb-1">Email Address *</label>
+                                    <label class="block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#526875] mb-1.5">Email Address *</label>
                                     <input
                                         type="email"
                                         name="email"
                                         required
-                                        class="w-full px-3.5 py-2.5 text-xs bg-white border border-[#dce5e8] rounded-md outline-none focus:border-[#147cb5]">
+                                        class="w-full px-0 py-2.5 text-sm bg-transparent border-x-0 border-t-0 border-b border-[#dce5e8] rounded-none outline-none focus:border-[#147cb5] transition-colors">
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
                                 <div>
-                                    <label class="block text-xs font-bold text-[#102f43] mb-1">Mobile / WhatsApp Number *</label>
+                                    <label class="block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#526875] mb-1.5">Mobile / WhatsApp Number *</label>
                                     <input
                                         type="tel"
                                         name="mobile"
                                         required
-                                        class="w-full px-3.5 py-2.5 text-xs bg-white border border-[#dce5e8] rounded-md outline-none focus:border-[#147cb5]">
+                                        class="w-full px-0 py-2.5 text-sm bg-transparent border-x-0 border-t-0 border-b border-[#dce5e8] rounded-none outline-none focus:border-[#147cb5] transition-colors">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-[#102f43] mb-1">Your JNV School & Passout Year *</label>
+                                    <label class="block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#526875] mb-1.5">Your JNV School & Passout Year *</label>
                                     <input
                                         type="text"
                                         name="jnv"
                                         required
-                                        class="w-full px-3.5 py-2.5 text-xs bg-white border border-[#dce5e8] rounded-md outline-none focus:border-[#147cb5]">
+                                        class="w-full px-0 py-2.5 text-sm bg-transparent border-x-0 border-t-0 border-b border-[#dce5e8] rounded-none outline-none focus:border-[#147cb5] transition-colors">
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
                                 <div>
-                                    <label class="block text-xs font-bold text-[#102f43] mb-1">Business Category *</label>
+                                    <label class="block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#526875] mb-1.5">Business Category *</label>
                                     <select
                                         name="category"
                                         x-model="category"
                                         required
-                                        class="w-full px-3.5 py-2.5 text-xs bg-white border border-[#dce5e8] rounded-md outline-none focus:border-[#147cb5] text-[#102f43]">
+                                        class="w-full px-0 py-2.5 text-sm bg-transparent border-x-0 border-t-0 border-b border-[#dce5e8] rounded-none outline-none focus:border-[#147cb5] transition-colors text-[#102f43]">
                                         <option value="">Select Category...</option>
                                         <option value="ca">CA & Financial Services</option>
                                         <option value="it">IT & Software Development</option>
@@ -1120,11 +1120,11 @@
                                 </div>
 
                                 <div>
-                                    <label class="block text-xs font-bold text-[#102f43] mb-1">Specific Service Area</label>
+                                    <label class="block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#526875] mb-1.5">Specific Service Area</label>
                                     <select
                                         name="sub_category"
                                         x-model="subCategory"
-                                        class="w-full px-3.5 py-2.5 text-xs bg-white border border-[#dce5e8] rounded-md outline-none focus:border-[#147cb5] text-[#102f43]">
+                                        class="w-full px-0 py-2.5 text-sm bg-transparent border-x-0 border-t-0 border-b border-[#dce5e8] rounded-none outline-none focus:border-[#147cb5] transition-colors text-[#102f43]">
                                         <option value="">Select Specific Need...</option>
                                         <template x-if="category && subCategories[category]">
                                             <template x-for="item in subCategories[category]" :key="item">
@@ -1137,12 +1137,12 @@
                             </div>
 
                             <div>
-                                <label class="block text-xs font-bold text-[#102f43] mb-1">Tell us about your business or requirement *</label>
+                                <label class="block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#526875] mb-1.5">Tell us about your business or requirement *</label>
                                 <textarea
                                     name="message"
                                     rows="3"
                                     required
-                                    class="w-full px-3.5 py-2.5 text-xs bg-white border border-[#dce5e8] rounded-md outline-none focus:border-[#147cb5]"></textarea>
+                                    class="w-full px-0 py-2.5 text-sm bg-transparent border-x-0 border-t-0 border-b border-[#dce5e8] rounded-none outline-none focus:border-[#147cb5] transition-colors"></textarea>
                             </div>
 
                             <button
