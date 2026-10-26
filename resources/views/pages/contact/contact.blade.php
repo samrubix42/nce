@@ -3,7 +3,7 @@
     <!-- ========================================================================= -->
     <!-- 1. STATIC PAGE HERO (Inner-page banner with solid brand color) -->
     <!-- ========================================================================= -->
-    <section class="relative bg-[#0b5a85] text-white border-b border-[#083f5d] overflow-hidden">
+    <section class="relative bg-[#0a4f75] text-white border-b border-[#073a54] overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24">
             <nav class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/70" aria-label="Breadcrumb" data-reveal>
                 <a href="{{ route('home') }}" class="hover:text-white transition-colors">Home</a>
