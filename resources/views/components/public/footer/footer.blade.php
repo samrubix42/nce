@@ -31,6 +31,7 @@
                     <a href="{{ route('home') }}#chapters" class="hover:text-white transition">Regional Chapters</a>
                     <a href="{{ route('home') }}#directory" class="hover:text-white transition">Business Directory</a>
                     <a href="{{ route('home') }}#events" class="hover:text-white transition">Upcoming Events</a>
+                    <a href="{{ route('contact') }}" class="hover:text-white transition">Contact NCE</a>
                 </nav>
             </div>
 

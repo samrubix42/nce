@@ -26,6 +26,7 @@
                 <a href="{{ route('home') }}#benefits" class="hover:text-[#147cb5] transition py-2">Membership</a>
                 <a href="{{ route('home') }}#events" class="hover:text-[#147cb5] transition py-2">Events</a>
                 <a href="{{ route('home') }}#faqs" class="hover:text-[#147cb5] transition py-2">FAQs</a>
+                <a href="{{ route('contact') }}" class="hover:text-[#147cb5] transition py-2">Contact</a>
             </nav>
                 <a 
                     href="{{ route('home') }}#enquiry" 
@@ -66,6 +67,7 @@
             <a @click="mobileOpen = false" href="{{ route('home') }}#benefits" class="hover:text-[#147cb5]">Membership</a>
             <a @click="mobileOpen = false" href="{{ route('home') }}#events" class="hover:text-[#147cb5]">Events</a>
             <a @click="mobileOpen = false" href="{{ route('home') }}#faqs" class="hover:text-[#147cb5]">FAQs</a>
+            <a @click="mobileOpen = false" href="{{ route('contact') }}" class="hover:text-[#147cb5]">Contact</a>
         </div>
 
         <div class="pt-4 border-t border-[#dce5e8] flex flex-col gap-3">

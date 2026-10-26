@@ -70,7 +70,7 @@
                         <img
                             src="{{ asset('images/slide-mentorship.webp') }}"
                             alt="Senior Navodayans Mentorship Conference"
-                            class="w-full h-full object-cover object-center sm:object-right">
+                            class="w-full h-full object-cover object-center sm:object-right ken-burns">
                         <!-- Pure White Fade Mask to the Left -->
                         <div class="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white/25 sm:bg-gradient-to-r sm:from-white sm:via-white/60 sm:to-transparent lg:via-white/5"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-white/40 sm:from-transparent via-transparent to-transparent"></div>
@@ -78,7 +78,7 @@
 
                     <!-- Left Content Area (NO BADGE, Satoshi Typography, Light Buttons) -->
                     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                        <div class="max-w-xl lg:max-w-2xl space-y-6">
+                        <div class="max-w-xl lg:max-w-2xl space-y-6" :class="{ 'hero-copy-in': currentSlide === 0 }">
 
                             <!-- Slide Index Eyebrow (No badge) -->
                             <span class="text-xs font-bold text-[#147cb5] tracking-[0.2em] uppercase block">
@@ -120,7 +120,7 @@
                         <img
                             src="{{ asset('images/about.jpeg') }}"
                             alt="Navodaya Council of Entrepreneurs Community Convention"
-                            class="w-full h-full object-cover object-center sm:object-right">
+                            class="w-full h-full object-cover object-center sm:object-right ken-burns">
                         <!-- Pure White Fade Mask to the Left -->
                         <div class="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white/25 sm:bg-gradient-to-r sm:from-white sm:via-white/60 sm:to-transparent lg:via-white/5"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-white/40 sm:from-transparent via-transparent to-transparent"></div>
@@ -128,7 +128,7 @@
 
                     <!-- Left Content Area (NO BADGE, Satoshi Typography, Light Buttons) -->
                     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                        <div class="max-w-xl lg:max-w-2xl space-y-6">
+                        <div class="max-w-xl lg:max-w-2xl space-y-6" :class="{ 'hero-copy-in': currentSlide === 1 }">
 
                             <!-- Slide Index Eyebrow (No badge) -->
                             <span class="text-xs font-bold text-[#147cb5] tracking-[0.2em] uppercase block">
@@ -170,7 +170,7 @@
                         <img
                             src="{{ asset('images/banner-1.webp') }}"
                             alt="NCE Delegates National Gathering"
-                            class="w-full h-full object-cover object-center sm:object-right">
+                            class="w-full h-full object-cover object-center sm:object-right ken-burns">
                         <!-- Pure White Fade Mask to the Left -->
                         <div class="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white/25 sm:bg-gradient-to-r sm:from-white sm:via-white/60 sm:to-transparent lg:via-white/5"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-white/40 sm:from-transparent via-transparent to-transparent"></div>
@@ -178,7 +178,7 @@
 
                     <!-- Left Content Area (NO BADGE, Satoshi Typography, Light Buttons) -->
                     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                        <div class="max-w-xl lg:max-w-2xl space-y-6">
+                        <div class="max-w-xl lg:max-w-2xl space-y-6" :class="{ 'hero-copy-in': currentSlide === 2 }">
 
                             <!-- Slide Index Eyebrow (No badge) -->
                             <span class="text-xs font-bold text-[#147cb5] tracking-[0.2em] uppercase block">
@@ -241,7 +241,7 @@
     <!-- ========================================================================= -->
     <section class="bg-[#082f49] text-white py-8 border-b border-[#062438]" aria-label="Our community values">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-6" data-reveal-group>
                 <div>
                     <strong class="text-xl sm:text-2xl font-bold tracking-tight block">Let's grow together.</strong>
                 </div>
@@ -269,7 +269,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
                 <!-- Left Side: Clean Content & Segoe UI Typography -->
-                <div class="lg:col-span-7 space-y-6">
+                <div class="lg:col-span-7 space-y-6" data-reveal="left">
                     <div>
                         <!-- Title with 'Together' in theme cyan/blue (#147cb5) -->
                         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#102f43] leading-tight mb-3">
@@ -336,7 +336,7 @@
                 </div>
 
                 <!-- Right Side: Clean Authentic Image Frame -->
-                <div class="lg:col-span-5">
+                <div class="lg:col-span-5" data-reveal="right" data-reveal-delay="120">
                     <div class="lg:sticky lg:top-28 space-y-3">
                         <div class="overflow-hidden rounded-xl border border-[#dce5e8] bg-[#f6f7f4] shadow-xs">
                             <img
@@ -359,7 +359,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Section Header -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14" data-reveal>
                 <div>
                     <span class="eyebrow">Our Exclusive</span>
                     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#102f43] leading-tight">
@@ -372,7 +372,7 @@
             </div>
 
             <!-- 8 Authentic Benefits Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal-group>
 
                 <!-- 1. Valuable Insights -->
                 <div class="bg-white rounded-xl border border-[#dce5e8] p-6 sm:p-7 flex flex-col justify-between transition-all duration-200 hover:border-[#147cb5] hover:-translate-y-1 hover:shadow-md group">
@@ -571,7 +571,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Section Header (Centered, Clean, No Badges) -->
-            <div class="max-w-3xl mx-auto text-center mb-14 space-y-3">
+            <div class="max-w-3xl mx-auto text-center mb-14 space-y-3" data-reveal>
                 <span class="text-xs font-bold tracking-[0.16em] uppercase text-[#147cb5] block">Regional Chapters</span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#102f43] leading-tight">
                     Teams By Region
@@ -582,7 +582,7 @@
             </div>
 
             <!-- Continuous Architectural Grid (No badges, photo on top, city + members below) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-[#dce5e8] border border-[#dce5e8] rounded-xl overflow-hidden shadow-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-[#dce5e8] border border-[#dce5e8] rounded-xl overflow-hidden shadow-xs" data-reveal-group>
 
                 <!-- 1. Lucknow -->
                 <a href="#enquiry" class="bg-white flex flex-col justify-between group block overflow-hidden transition-colors hover:bg-[#fafcfd]">
@@ -839,7 +839,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Section Header -->
-            <div class="max-w-3xl mx-auto text-center mb-12 sm:mb-14">
+            <div class="max-w-3xl mx-auto text-center mb-12 sm:mb-14" data-reveal>
                 <span class="eyebrow">Gatherings &amp; Conclaves</span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#102f43] leading-tight">
                     Upcoming Events
@@ -852,6 +852,7 @@
             <!-- Minimal Card Slider -->
             <div
                 class="relative w-full"
+                data-reveal="scale"
                 @touchstart.passive="handleTouchStart($event)"
                 @touchend.passive="handleTouchEnd($event)">
                 <div class="overflow-hidden rounded-xl border border-[#dce5e8] bg-white shadow-sm">
@@ -931,7 +932,7 @@
     <!-- ========================================================================= -->
     <section class="bg-[#082f49] text-white py-16 sm:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8" data-reveal-group>
                 <div class="space-y-3 text-center lg:text-left">
                     <span class="text-xs uppercase tracking-[0.16em] text-[#b4d0df] font-bold block">
                         Your next chapter starts with a connection
@@ -986,7 +987,7 @@
     }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div class="max-w-6xl mx-auto bg-white rounded-xl border border-[#dce5e8] overflow-hidden">
+            <div class="max-w-6xl mx-auto bg-white rounded-xl border border-[#dce5e8] overflow-hidden" data-reveal="scale">
                 <div class="grid grid-cols-1 lg:grid-cols-12">
 
                     <!-- Left: Intro & Steps -->
@@ -1203,7 +1204,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Section Header (Centered) -->
-            <div class="max-w-3xl mx-auto text-center mb-12 sm:mb-14">
+            <div class="max-w-3xl mx-auto text-center mb-12 sm:mb-14" data-reveal>
                 <span class="eyebrow">A little clarity</span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#102f43] leading-tight">
                     Before you take the next step.
@@ -1214,7 +1215,7 @@
             </div>
 
             <!-- FAQ Accordion (Centered) -->
-            <div class="max-w-3xl mx-auto border-t border-b border-[#dce5e8] divide-y divide-[#dce5e8]">
+            <div class="max-w-3xl mx-auto border-t border-b border-[#dce5e8] divide-y divide-[#dce5e8]" data-reveal>
                 <template x-for="(faq, index) in faqs" :key="index">
                     <div>
                         <button
