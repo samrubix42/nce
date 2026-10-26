@@ -26,11 +26,11 @@
             <div>
                 <h3 class="text-xs font-bold uppercase tracking-[0.16em] text-[#b4d0df]">Explore</h3>
                 <nav class="mt-4 flex flex-col gap-2.5 text-sm text-slate-200">
-                    <a href="#about" class="hover:text-white transition">About NCE</a>
-                    <a href="#benefits" class="hover:text-white transition">Membership Benefits</a>
-                    <a href="#chapters" class="hover:text-white transition">Regional Chapters</a>
-                    <a href="#directory" class="hover:text-white transition">Business Directory</a>
-                    <a href="#events" class="hover:text-white transition">Upcoming Events</a>
+                    <a href="{{ route('about') }}" class="hover:text-white transition">About NCE</a>
+                    <a href="{{ route('home') }}#benefits" class="hover:text-white transition">Membership Benefits</a>
+                    <a href="{{ route('home') }}#chapters" class="hover:text-white transition">Regional Chapters</a>
+                    <a href="{{ route('home') }}#directory" class="hover:text-white transition">Business Directory</a>
+                    <a href="{{ route('home') }}#events" class="hover:text-white transition">Upcoming Events</a>
                 </nav>
             </div>
 

@@ -1,7 +1,4 @@
-<x-layouts.app>
-    <x-slot:title>
-        NCE — Navodaya Council of Entrepreneurs | Shared roots. Growing together.
-    </x-slot:title>
+<div>
 
     <!-- ========================================================================= -->
     <!-- 1. HERO SECTION WITH MODERN CLEAN SLIDER (join.nceconnect.org style) -->
@@ -1253,6 +1250,4 @@
         </div>
     </section>
 
-
-
-</x-layouts.app>
+</div>

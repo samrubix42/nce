@@ -22,12 +22,13 @@
             <div class="hidden lg:flex items-center gap-5">
                    <!-- Desktop Navigation Links (Clean dummy links with #) -->
             <nav class="hidden lg:flex items-center gap-8 text-[13px] font-bold text-[#102f43]">
-                <a href="#" class="hover:text-[#147cb5] transition py-2">Membership</a>
-                <a href="#" class="hover:text-[#147cb5] transition py-2">Events</a>
-                <a href="#" class="hover:text-[#147cb5] transition py-2">NCE News</a>
+                <a href="{{ route('about') }}" class="hover:text-[#147cb5] transition py-2">About</a>
+                <a href="{{ route('home') }}#benefits" class="hover:text-[#147cb5] transition py-2">Membership</a>
+                <a href="{{ route('home') }}#events" class="hover:text-[#147cb5] transition py-2">Events</a>
+                <a href="{{ route('home') }}#faqs" class="hover:text-[#147cb5] transition py-2">FAQs</a>
             </nav>
                 <a 
-                    href="#enquiry" 
+                    href="{{ route('home') }}#enquiry" 
                     class="inline-flex items-center justify-center gap-2  text-[#147cb5] text-[13px] font-bold px-5 py-2 transition duration-150 "
                 >
                     <span>Member Sign In</span>
@@ -61,9 +62,10 @@
         class="lg:hidden max-h-[calc(100svh-80px)] sm:max-h-[calc(100svh-96px)] overflow-y-auto border-t border-[#dce5e8] bg-white px-6 py-6 space-y-4 shadow-lg"
     >
         <div class="flex flex-col space-y-3 text-sm font-bold text-[#102f43]">
-            <a @click="mobileOpen = false" href="#" class="hover:text-[#147cb5]">Membership</a>
-            <a @click="mobileOpen = false" href="#" class="hover:text-[#147cb5]">Events</a>
-            <a @click="mobileOpen = false" href="#" class="hover:text-[#147cb5]">NCE News</a>
+            <a @click="mobileOpen = false" href="{{ route('about') }}" class="hover:text-[#147cb5]">About</a>
+            <a @click="mobileOpen = false" href="{{ route('home') }}#benefits" class="hover:text-[#147cb5]">Membership</a>
+            <a @click="mobileOpen = false" href="{{ route('home') }}#events" class="hover:text-[#147cb5]">Events</a>
+            <a @click="mobileOpen = false" href="{{ route('home') }}#faqs" class="hover:text-[#147cb5]">FAQs</a>
         </div>
 
         <div class="pt-4 border-t border-[#dce5e8] flex flex-col gap-3">
@@ -76,7 +78,7 @@
             </a>
             <a 
                 @click="mobileOpen = false" 
-                href="#enquiry" 
+                href="{{ route('home') }}#enquiry" 
                 class="w-full text-center py-3 text-xs font-bold text-white bg-[#147cb5] hover:bg-[#106491] rounded-md transition"
             >
                 Register your business &rarr;

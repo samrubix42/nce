@@ -1,8 +1,11 @@
 <?php
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new class extends Component
+new
+#[Title('NCE — Navodaya Council of Entrepreneurs | Shared roots. Growing together.')]
+class extends Component
 {
     //
 };
